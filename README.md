@@ -1,18 +1,31 @@
-## Getting Started
+## Java GUI Sudoku Solver
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This is a Java-based Graphical User Interface (GUI) Sudoku Solver. It provides an interactive interface for solving Sudoku puzzles. It is written in Java and uses a backtracking algorithm to solve the puzzle.
 
-## Folder Structure
+## Features
 
-The workspace contains two folders by default, where:
+- A user-friendly GUI that allows input of the Sudoku puzzle
+- The ability to solve any valid Sudoku puzzle
+- Provides a clear message if the puzzle is unsolvable
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Installation
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+- Clone or download the project from GitHub.
+- Open the project in your preferred Java Integrated Development Environment (IDE).
+- Build and run the project from your IDE.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Usage
+- Run the project.
+- Enter the values in the empty cells of the Sudoku puzzle in the GUI.
+- Click on the "Solve" button to solve the puzzle.
+- If the puzzle is solvable, the solved puzzle will be displayed in the GUI.
+- If the puzzle is unsolvable or has multiple solutions, a clear message will be displayed in the GUI.
 
-## Dependency Management
+## Future Enhancements
+- Improve the algorithm to make it more efficient and faster
+- Add the ability to save and load puzzles from a file
+- Add a feature to allow users to highlight cells that contain the same value
+- Add support for different levels of difficulty
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Contributing
+Contributions are welcome! If you would like to contribute, please fork the repository and create a pull request.
