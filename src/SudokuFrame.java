@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 public class SudokuFrame extends JFrame {
     private JTextField[][] Board;
@@ -11,6 +12,40 @@ public class SudokuFrame extends JFrame {
         setTitle("SudokuSolver");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+        // Create menu bar
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem openItem = new JMenuItem("Open");
+        openItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(SudokuFrame.this);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        BufferedReader reader = new BufferedReader(new FileReader(fileChooser.getSelectedFile()));
+                        String line;
+                        int row = 0;
+                        while ((line = reader.readLine()) != null && row < 9) {
+                            String[] values = line.split(",");
+                            for (int col = 0; col < 9 && col < values.length; col++) {
+                                String value = values[col].trim();
+                                if (!value.isEmpty()) {
+                                    Board[row][col].setText(value);
+                                }
+                            }
+                            row++;
+                        }
+                        reader.close();
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(SudokuFrame.this, "Error reading file: " + ex.getMessage(),
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        fileMenu.add(openItem);
+        menuBar.add(fileMenu);
+        setJMenuBar(menuBar);
 
         JPanel BoardPanel = new JPanel(new GridLayout(9, 9, 2, 2));
         Board = new JTextField[9][9];
