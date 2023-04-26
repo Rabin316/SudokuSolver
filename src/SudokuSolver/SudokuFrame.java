@@ -116,6 +116,24 @@ public class SudokuFrame extends JFrame {
                 }
             }
         }
+        // Validate puzzle
+        if (!ValidatePuzzle.validate(puzzle)) {
+            return false;
+        }
+        // Check if puzzle is empty
+        boolean isEmpty = true;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (puzzle[i][j] != 0) {
+                    isEmpty = false;
+                    break;
+                }
+            }
+        }
+        if (isEmpty) {
+            JOptionPane.showMessageDialog(SudokuFrame.this, "Puzzle is empty.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
         if (SudokuSolver.solve(puzzle)) {
             // Copy values from puzzle array back to text fields
             for (int i = 0; i < 9; i++) {
