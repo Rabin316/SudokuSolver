@@ -13,15 +13,25 @@ public class SudokuFrame extends JFrame {
         setTitle("SudokuSolver");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
+
         // File Addition
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         JMenuItem loadItem = new JMenuItem("Load Puzzle");
         JMenuItem saveItem = new JMenuItem("Save Puzzle");
+        JMenuItem aboutItem = new JMenuItem("About");
         fileMenu.add(loadItem);
         fileMenu.add(saveItem);
         menuBar.add(fileMenu);
         setJMenuBar(menuBar);
+        aboutItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(SudokuFrame.this,
+                        "SudokuSolver v1.0\n\nThis program allows you to solve Sudoku puzzles.\n\nCreated by Rabin Dangol",
+                        "About", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        fileMenu.add(aboutItem);
 
         JPanel BoardPanel = new JPanel(new GridLayout(9, 9, 2, 2));
         Board = new JTextField[9][9];
@@ -77,6 +87,10 @@ public class SudokuFrame extends JFrame {
         getContentPane().add(BoardPanel, BorderLayout.CENTER);
         getContentPane().add(ButtonPanel, BorderLayout.SOUTH);
         pack();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (int) ((screenSize.getWidth() - getWidth()) / 2);
+        int centerY = (int) ((screenSize.getHeight() - getHeight()) / 2);
+        setLocation(centerX, centerY);
         setVisible(true);
 
         // loading puzzle file in txt format only
