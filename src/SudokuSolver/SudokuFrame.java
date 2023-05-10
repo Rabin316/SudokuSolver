@@ -27,19 +27,19 @@ public class SudokuFrame extends JFrame {
         aboutItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(SudokuFrame.this,
-                        "SudokuSolver v1.0\n\nThis program allows you to solve Sudoku puzzles.\n\nCreated by Rabin Dangol",
+                        "SudokuSolver v1.0\n\nThis program allows you to solve Sudoku puzzles.\n\nCreated by Rabin Dangol & Chiran Rai (May 2023)",
                         "About", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         fileMenu.add(aboutItem);
 
-        JPanel BoardPanel = new JPanel(new GridLayout(9, 9, 2, 2));
+        JPanel BoardPanel = new JPanel(new GridLayout(9, 9, 0, 0));
         Board = new JTextField[9][9];
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 JTextField textField = new JTextField();
-                textField.setPreferredSize(new Dimension(50, 50));
+                textField.setPreferredSize(new Dimension(40, 40));
                 textField.setHorizontalAlignment(JTextField.CENTER);
                 Board[i][j] = textField;
                 BoardPanel.add(textField);
