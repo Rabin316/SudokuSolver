@@ -9,6 +9,14 @@ public class ValidatePuzzle {
             boolean[] used = new boolean[9];
             for (int j = 0; j < 9; j++) {
                 int value = puzzle[i][j];
+                if (value < 0 || value > 9) {
+                    JOptionPane.showMessageDialog(null,
+                            "Invalid puzzle: Value at row " + (i + 1) + ", column " + (j + 1)
+                                    + " is not between 1 and 9.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
                 if (value != 0) {
                     if (used[value - 1]) {
                         JOptionPane.showMessageDialog(null,
@@ -25,6 +33,14 @@ public class ValidatePuzzle {
             boolean[] used = new boolean[9];
             for (int i = 0; i < 9; i++) {
                 int value = puzzle[i][j];
+                if (value < 0 || value > 9) {
+                    JOptionPane.showMessageDialog(null,
+                            "Invalid puzzle: Value at row " + (i + 1) + ", column " + (j + 1)
+                                    + " is not between 1 and 9.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
                 if (value != 0) {
                     if (used[value - 1]) {
                         JOptionPane.showMessageDialog(null,
@@ -43,6 +59,14 @@ public class ValidatePuzzle {
                 for (int i = gridRow; i < gridRow + 3; i++) {
                     for (int j = gridCol; j < gridCol + 3; j++) {
                         int value = puzzle[i][j];
+                        if (value < 0 || value > 9) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Invalid puzzle: Value at row " + (i + 1) + ", column " + (j + 1)
+                                            + " is not between 1 and 9.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return false;
+                        }
                         if (value != 0) {
                             if (used[value - 1]) {
                                 JOptionPane
