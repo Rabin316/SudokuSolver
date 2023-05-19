@@ -9,7 +9,7 @@ import java.io.*;
 public class SudokuFrame extends JFrame {
     public JTextField[][] Board;
 
-    SudokuFrame() {
+    SudokuFrame(String username) {
         setTitle("SudokuSolver");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -57,10 +57,18 @@ public class SudokuFrame extends JFrame {
 
             }
         }
-        // Buttons Solve and Reset
+        // Buttons Solve and Reset and Back
+        JButton backButton = new JButton("Back"); // Replace "back.png" with your own image file
         JPanel ButtonPanel = new JPanel();
         JButton resetButton = new JButton("Reset");
         JButton solveButton = new JButton("Solve");
+        backButton.setToolTipText("Back to Main Menu");
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close SudokuSolver UI
+                new MainMenu(username); // Open Main Menu
+            }
+        });
         solveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (solveSudoku()) {
@@ -82,8 +90,9 @@ public class SudokuFrame extends JFrame {
                 }
             }
         });
-
-        ButtonPanel.add(resetButton);
+        ButtonPanel.add(solveButton, BorderLayout.CENTER);
+        ButtonPanel.add(resetButton, BorderLayout.EAST);
+        ButtonPanel.add(backButton, BorderLayout.WEST);
         getContentPane().add(BoardPanel, BorderLayout.CENTER);
         getContentPane().add(ButtonPanel, BorderLayout.SOUTH);
         pack();
@@ -198,6 +207,6 @@ public class SudokuFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        new SudokuFrame();
     }
+
 }
