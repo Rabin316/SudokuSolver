@@ -135,6 +135,7 @@ public class PlaySudoku extends JFrame {
             }
         });
         // Add an ActionListener to the "Check" button
+        // Add an ActionListener to the "Check" button
         check.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (puzzleGenerated) {
@@ -169,11 +170,12 @@ public class PlaySudoku extends JFrame {
 
                     if (allFilled) {
                         try {
+                            // Retrieve the ID of the puzzle from the puzzleIdLabel
+                            String puzzleId = puzzleIdLabel.getText().split(": ")[1];
+
                             // Retrieve the solution from the database
                             SudokuDatabase database = new SudokuDatabase();
-                            String solution = database.getSolution(1); // Replace 1 with the ID of the puzzle you want
-                                                                       // to
-                                                                       // check
+                            String solution = database.getSolution(Integer.parseInt(puzzleId));
                             database.close();
 
                             // Check the solution against the user input
@@ -193,7 +195,7 @@ public class PlaySudoku extends JFrame {
                             // Display a congratulatory message if the solution is correct
                             if (correct) {
                                 score += 20; // Increment the user's score by 20
-                                //long elapsedTime = 0;
+                                // long elapsedTime = 0;
                                 if (startTime != 0) {
                                     elapsedTime = System.currentTimeMillis() - startTime;
                                     startTime = 0;
@@ -201,7 +203,8 @@ public class PlaySudoku extends JFrame {
                                 try {
                                     // Save the user's score to the database
                                    // SudokuDatabase database = new SudokuDatabase();
-                                    database.saveScore(username, 1, score, (int) elapsedTime / 1000);
+                                    database.saveScore(username, Integer.parseInt(puzzleId), score,
+                                            (int) elapsedTime / 1000);
                                     database.close();
                                 } catch (SQLException ex) {
                                     ex.printStackTrace();
@@ -227,7 +230,6 @@ public class PlaySudoku extends JFrame {
                             "Sudoku Solver", JOptionPane.WARNING_MESSAGE);
                 }
             }
-
         });
         getContentPane().add(BoardPanel, BorderLayout.CENTER);
         getContentPane().add(ButtonPanel, BorderLayout.SOUTH);

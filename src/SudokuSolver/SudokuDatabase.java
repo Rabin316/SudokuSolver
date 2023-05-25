@@ -84,8 +84,8 @@ public class SudokuDatabase {
     public static void main(String[] args) {
         try {
             SudokuDatabase database = new SudokuDatabase();
-            String puzzle = database.getPuzzle();
-            String solution = database.getSolution(1);
+            //String puzzle = database.getPuzzle();
+            //String solution = database.getSolution(1);
             database.close();
             // Use the puzzle and solution data as needed
         } catch (SQLException e) {
