@@ -141,10 +141,13 @@ public class PlaySudoku extends JFrame {
                 if (puzzleGenerated) {
                     // Stop the timer
                     long elapsedTime = 0;
+                    long pausedTime = 0;
+
                     if (startTime != 0) {
                         elapsedTime = System.currentTimeMillis() - startTime;
                         startTime = 0;
                     }
+
                     // Display the elapsed time in the dialog message
                     String message = "";
                     if (elapsedTime > 0) {
@@ -195,14 +198,14 @@ public class PlaySudoku extends JFrame {
                             // Display a congratulatory message if the solution is correct
                             if (correct) {
                                 score += 20; // Increment the user's score by 20
-                                // long elapsedTime = 0;
+
                                 if (startTime != 0) {
                                     elapsedTime = System.currentTimeMillis() - startTime;
                                     startTime = 0;
                                 }
+
                                 try {
                                     // Save the user's score to the database
-                                   // SudokuDatabase database = new SudokuDatabase();
                                     database.saveScore(username, Integer.parseInt(puzzleId), score,
                                             (int) elapsedTime / 1000);
                                     database.close();
@@ -213,17 +216,34 @@ public class PlaySudoku extends JFrame {
                                         "Congratulations! You solved the puzzle.\n" + message + "\nScore: " + score,
                                         "Sudoku Solver", JOptionPane.INFORMATION_MESSAGE);
                             } else {
-                                JOptionPane.showMessageDialog(null,
-                                        "Sorry, your solution is incorrect. Please try again.",
-                                        "Sudoku Solver", JOptionPane.ERROR_MESSAGE);
+                                // Display an error message if the solution is incorrect
+                                // Pause the timer and show the dialog
+                                if (elapsedTime > 0) {
+                                    pausedTime = elapsedTime; // Store the elapsed time
+                                    startTime = 0; // Pause the timer
+                                    JOptionPane.showMessageDialog(null,
+                                            "Sorry, your solution is incorrect. Please try again.",
+                                            "Sudoku Solver", JOptionPane.ERROR_MESSAGE);
+                                    startTime = System.currentTimeMillis() - pausedTime; // Resume the timer with the
+                                                                                         // remaining time
+                                }
                             }
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Please fill in all cells before checking the solution.",
-                                "Sudoku Solver",
-                                JOptionPane.WARNING_MESSAGE);
+                        // Display a warning message if all cells are not filled
+                        // Pause the timer and show the dialog
+                        if (elapsedTime > 0) {
+                            pausedTime = elapsedTime; // Store the elapsed time
+                            startTime = 0; // Pause the timer
+                            JOptionPane.showMessageDialog(null,
+                                    "Please fill in all cells before checking the solution.",
+                                    "Sudoku Solver", JOptionPane.WARNING_MESSAGE);
+                            startTime = System.currentTimeMillis() - pausedTime; // Resume the timer with the remaining
+                                                                                 // time
+                        }
+
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Please generate a puzzle before checking the solution.",
