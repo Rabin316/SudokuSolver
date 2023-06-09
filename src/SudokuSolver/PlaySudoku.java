@@ -13,7 +13,7 @@ public class PlaySudoku extends JFrame {
     public JTextField[][] Board;
     private long startTime = 0;
     private boolean puzzleGenerated = false;
-    private String username;
+    public String username;
     private JLabel puzzleIdLabel;
     private int score = 0;
 

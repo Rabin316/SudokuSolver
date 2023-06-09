@@ -19,11 +19,6 @@ public class LoginRegistration extends JFrame {
         JPanel loginRegistrationPanel = new JPanel(new GridLayout(3, 2, 10, 10));
         loginRegistrationPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 
-        // // Create heading label
-        // JLabel headingLabel = new JLabel("Login or Register to Play Sudoku");
-        // headingLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        // headingLabel.setHorizontalAlignment(JLabel.CENTER);
-        // getContentPane().add(headingLabel, BorderLayout.NORTH);
 
         // Create username label and text field
         JLabel usernameLabel = new JLabel("Username:");
@@ -110,7 +105,7 @@ public class LoginRegistration extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
         // new LoginRegistration();
     }
 }
