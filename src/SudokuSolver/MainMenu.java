@@ -89,7 +89,7 @@ public class MainMenu extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        // new MainMenu();
-    }
+    // public static void main(String[] args) {
+    //     // new MainMenu();
+    // }
 }

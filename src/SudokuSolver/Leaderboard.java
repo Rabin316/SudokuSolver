@@ -1,50 +1,113 @@
 package SudokuSolver;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
+
 public class Leaderboard extends JFrame {
+    private JComboBox<String> difficultyComboBox;
+    private JTable leaderboardTable;
+    private DefaultTableModel tableModel;
+
     public Leaderboard() {
         setTitle("Leaderboard");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
 
         // Create leaderboard panel
-        JPanel leaderboardPanel = new JPanel(new GridLayout(0, 5, 10, 10));
-        leaderboardPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+        JPanel leaderboardPanel = new JPanel(new BorderLayout());
+        leaderboardPanel.setBorder(new EmptyBorder(30, 30, 30, 30));
 
-        // Add column headers
-        leaderboardPanel.add(new JLabel("Rank", SwingConstants.CENTER));
-        leaderboardPanel.add(new JLabel("Username", SwingConstants.CENTER));
-        leaderboardPanel.add(new JLabel("Puzzle ID", SwingConstants.CENTER));
-        leaderboardPanel.add(new JLabel("Score", SwingConstants.CENTER));
-        leaderboardPanel.add(new JLabel("Time (s)", SwingConstants.CENTER));
+        // Create difficulty selection panel
+        JPanel selectionPanel = new JPanel(new FlowLayout());
+        selectionPanel.add(new JLabel("Difficulty:"));
+        difficultyComboBox = new JComboBox<>();
+        difficultyComboBox.addItem("All");
+        difficultyComboBox.addItem("Easy");
+        difficultyComboBox.addItem("Medium");
+        difficultyComboBox.addItem("Hard");
+        selectionPanel.add(difficultyComboBox);
 
+        JButton showButton = new JButton("Show");
+        showButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Retrieve and display the leaderboard based on the selected difficulty
+                String selectedDifficulty = (String) difficultyComboBox.getSelectedItem();
+                showLeaderboard(selectedDifficulty);
+            }
+        });
+        selectionPanel.add(showButton);
+
+        leaderboardPanel.add(selectionPanel, BorderLayout.NORTH);
+
+        // Create leaderboard table
+        tableModel = new DefaultTableModel();
+        leaderboardTable = new JTable(tableModel);
+        leaderboardTable.setRowHeight(25);
+        leaderboardTable.getTableHeader().setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        leaderboardTable.setDefaultRenderer(Object.class, centerRenderer);
+
+        JScrollPane scrollPane = new JScrollPane(leaderboardTable);
+        leaderboardPanel.add(scrollPane, BorderLayout.CENTER);
+
+        getContentPane().add(leaderboardPanel);
+        pack();
+        setPreferredSize(new Dimension(500, 400));
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    private void showLeaderboard(String difficulty) {
         try {
-            // Retrieve leaderboard data from the database
+            // Retrieve leaderboard data from the database based on the selected difficulty
             SudokuDatabase database = new SudokuDatabase();
-            ResultSet resultSet = database.getLeaderboard();
+            ResultSet resultSet = database.getLeaderboard(difficulty);
+
+            // Create column headers
+            Vector<String> columnNames = new Vector<>();
+            columnNames.add("Rank");
+            columnNames.add("Username");
+            columnNames.add("Puzzles Solved");
+            columnNames.add("Score");
+            columnNames.add("Shortest Time (s)");
+
+            // Populate data rows
+            Vector<Vector<Object>> data = new Vector<>();
             int rank = 1;
             while (resultSet.next()) {
-                // Add leaderboard data to the panel
-                leaderboardPanel.add(new JLabel(String.valueOf(rank), SwingConstants.CENTER));
-                leaderboardPanel.add(new JLabel(resultSet.getString("username"), SwingConstants.CENTER));
-                leaderboardPanel.add(new JLabel(String.valueOf(resultSet.getInt("puzzle_id")), SwingConstants.CENTER));
-                leaderboardPanel.add(new JLabel(String.valueOf(resultSet.getInt("score")), SwingConstants.CENTER));
-                leaderboardPanel.add(new JLabel(String.valueOf(resultSet.getInt("time")), SwingConstants.CENTER));
+                Vector<Object> row = new Vector<>();
+                row.add(rank);
+                row.add(resultSet.getString("username"));
+                row.add(resultSet.getInt("puzzles_solved"));
+                row.add(resultSet.getInt("total_score"));
+                row.add(resultSet.getInt("shortest_time"));
+                data.add(row);
                 rank++;
             }
+
+            // Update table model
+            tableModel.setDataVector(data, columnNames);
+
             database.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
 
-        getContentPane().add(leaderboardPanel, BorderLayout.CENTER);
-        pack();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int centerX = (int) ((screenSize.getWidth() - getWidth()) / 2);
-        int centerY = (int) ((screenSize.getHeight() - getHeight()) / 2);
-        setLocation(centerX, centerY);
-        setVisible(true);
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Leaderboard();
+            }
+        });
     }
 }

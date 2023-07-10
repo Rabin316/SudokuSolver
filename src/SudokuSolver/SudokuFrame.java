@@ -206,7 +206,8 @@ public class SudokuFrame extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-    }
+    // public static void main(String[] args) {
+    // new SudokuFrame(null);
+    // }
 
 }
