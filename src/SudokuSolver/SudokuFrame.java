@@ -198,6 +198,12 @@ public class SudokuFrame extends JFrame {
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
                     Board[i][j].setText(Integer.toString(puzzle[i][j]));
+                     // Delay to visualize the solving process
+                     try {
+                        Thread.sleep(30); // Adjust the delay time as needed
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
             return true;

@@ -121,7 +121,4 @@ private boolean addUser(String username, String password) {
     return false;
 }
 }
-// public static void main(String[] args) {
-//     //new LoginRegistration();
-//     }
 }

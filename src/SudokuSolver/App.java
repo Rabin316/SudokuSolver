@@ -1,3 +1,7 @@
+/**
+ * The App class is the entry point of the SudokuSolver application and it initializes the
+ * LoginRegistration class.
+ */
 package SudokuSolver;
 
 import SudokuSolver.Login.LoginRegistration;

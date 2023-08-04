@@ -1,3 +1,7 @@
+/**
+ * The SudokuGenerator class generates a Sudoku puzzle with a specified difficulty level and provides
+ * methods to access the generated puzzle and its solution.
+ */
 package SudokuSolver;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +30,16 @@ public class SudokuGenerator {
         removeCells(difficulty);
     }
 
+    /**
+     * The function "solve" is a recursive backtracking algorithm that attempts to solve a Sudoku
+     * puzzle by placing numbers in empty cells one by one, and backtracking if a number placement
+     * violates the rules of Sudoku.
+     * 
+     * @param row The row parameter represents the current row index in the Sudoku grid. It is used to
+     * iterate through each row of the grid.
+     * @param col The column index of the current cell in the Sudoku grid.
+     * @return The solve() method returns a boolean value.
+     */
     private boolean solve(int row, int col) {
         if (col == 9) {
             col = 0;

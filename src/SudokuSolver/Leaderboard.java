@@ -1,3 +1,8 @@
+/**
+ * The Leaderboard class is a Java Swing application that displays a leaderboard for a Sudoku game,
+ * allowing users to select a difficulty level and view the rankings of players based on their
+ * performance.
+ */
 package SudokuSolver;
 
 import javax.swing.*;

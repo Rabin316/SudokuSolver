@@ -1,3 +1,6 @@
+/**
+ * The SudokuSolver class provides a method to solve a Sudoku puzzle using a backtracking algorithm.
+ */
 package SudokuSolver;
 
 public class SudokuSolver {
@@ -5,6 +8,16 @@ public class SudokuSolver {
         return solve(puzzle, 0, 0);
     }
 
+/**
+ * The function solves a Sudoku puzzle using backtracking.
+ * 
+ * @param puzzle A 2D array representing the Sudoku puzzle. Each element in the array represents a cell
+ * in the puzzle, with 0 indicating an empty cell and values 1-9 indicating the filled cells.
+ * @param row The current row index in the puzzle grid. It represents the row that is currently being
+ * filled or checked.
+ * @param col The column index of the current cell in the puzzle grid.
+ * @return The solve method returns a boolean value.
+ */
     private static boolean solve(int[][] puzzle, int row, int col) {
         if (row == 9) {
             // All rows have been filled, puzzle is solved

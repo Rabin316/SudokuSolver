@@ -1,3 +1,6 @@
+/**
+ * The ValidatePuzzle class in the SudokuSolver package checks if a given Sudoku puzzle is valid.
+ */
 package SudokuSolver;
 
 import javax.swing.JOptionPane;
