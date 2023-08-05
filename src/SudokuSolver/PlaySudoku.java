@@ -168,10 +168,13 @@ public class PlaySudoku extends JFrame {
                 if (puzzleGenerated) {
                     // Stop the timer
                     long elapsedTime = 0;
-                    if (startTime != 0) {
+                    if (startTime != 0) 
+                    {
                         elapsedTime = System.currentTimeMillis() - startTime;
                         startTime = 0;
                     }
+                    // Clear previous cell highlights
+                    clearCellHighlights();
 
                     // Display the elapsed time in the dialog message
                     String message = "";
@@ -205,11 +208,8 @@ public class PlaySudoku extends JFrame {
                                 String value = Board[i][j].getText();
                                 if (!value.equals(String.valueOf(solution[i][j]))) {
                                     correct = false;
-                                    break;
+                                    Board[i][j].setBackground(Color.RED); // Highlight incorrect cells with red background
                                 }
-                            }
-                            if (!correct) {
-                                break;
                             }
                         }
 
@@ -271,5 +271,12 @@ public class PlaySudoku extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+    private void clearCellHighlights() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                Board[i][j].setBackground(Color.WHITE); // Set the background color to default (white)
+            }
+        }
     }
 }
